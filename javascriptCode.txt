@@ -1,0 +1,55 @@
+input.onButtonPressed(Button.A, function () {
+    mearm.moveByAngle(MearmServo.Right, -20)
+    TimeOut = Release
+})
+input.onButtonPressed(Button.AB, function () {
+    Resetta()
+})
+input.onButtonPressed(Button.B, function () {
+    mearm.moveByAngle(MearmServo.Right, 20)
+    TimeOut = Release
+})
+function Resetta () {
+    mearm.moveToCentre(MearmServo.Base)
+    mearm.moveToCentre(MearmServo.Right)
+    mearm.moveToCentre(MearmServo.Left)
+    mearm.moveToCentre(MearmServo.Grip)
+}
+let TimeOut = 0
+let Release = 0
+Resetta()
+Release = 10
+basic.forever(function () {
+    if (mearm.joystick(Joystick.RightJoyY) < 0 && mearm.joystick(Joystick.RightJoyX) == 0) {
+        mearm.moveByAngle(MearmServo.Left, -1)
+        TimeOut = Release
+    } else if (mearm.joystick(Joystick.RightJoyY) > 0 && mearm.joystick(Joystick.RightJoyX) == 0) {
+        mearm.moveByAngle(MearmServo.Left, 1)
+        TimeOut = Release
+    }
+})
+basic.forever(function () {
+    if (mearm.joystick(Joystick.LeftJoyY) < 0 && mearm.joystick(Joystick.LeftJoyX) == 0) {
+        mearm.openGrip()
+    } else if (mearm.joystick(Joystick.LeftJoyY) > 0 && mearm.joystick(Joystick.LeftJoyX) == 0) {
+        mearm.closeGrip()
+    }
+})
+basic.forever(function () {
+    if (mearm.joystick(Joystick.LeftJoyX) < 0 && mearm.joystick(Joystick.LeftJoyY) == 0) {
+        mearm.moveByAngle(MearmServo.Base, -1)
+        TimeOut = Release
+    } else if (mearm.joystick(Joystick.LeftJoyX) > 0 && mearm.joystick(Joystick.LeftJoyY) == 0) {
+        mearm.moveByAngle(MearmServo.Base, 1)
+        TimeOut = Release
+    }
+})
+basic.forever(function () {
+    if (mearm.joystick(Joystick.RightJoyX) < 0 && mearm.joystick(Joystick.RightJoyY) == 0) {
+        mearm.moveByAngle(MearmServo.Grip, 1)
+        TimeOut = Release
+    } else if (mearm.joystick(Joystick.RightJoyX) > 0 && mearm.joystick(Joystick.RightJoyY) == 0) {
+        mearm.moveByAngle(MearmServo.Grip, -1)
+        TimeOut = Release
+    }
+})
